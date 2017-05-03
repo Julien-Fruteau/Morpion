@@ -19,15 +19,16 @@
 # * Call create_board(), and store this as board.
 
 import numpy as np
+import random
 
-# let's make dim_board a GLOBAL var since it will be used
+# let's make dim_board a GLOBAL constance since it will be used
 # latter in this homework. LEGB allows us to do so.
 dim_board = 3
 
 def create_board():
-    return np.zeros((dim_board, dim_board), dtype=int)
+    return(np.zeros((dim_board, dim_board), dtype=int))
 
-board = create_board()
+# board = create_board()
 
 # EXERCISE 2
 #
@@ -50,7 +51,7 @@ def place(board, player, position):
     else:
         print("Move not allowed at position ", position)
 
-place(board, 1, (0,0))
+# place(board, 1, (0,0))
 
 # EXERCISE 3
 #
@@ -66,11 +67,10 @@ def possibilities(board):
     # Let's PACK the tuple of 2 arrays returned by np.where:
     (ind_row, ind_col) = np.where(board == 0)
     # defined the list to be returned w/ List Comprehension:
-    list_free_pos = [(ind_row[i], ind_col[i]) \
-                            for i in range(len(ind_row))]
-    return list_free_pos
+    list_free_pos = [(ind_row[i], ind_col[i]) for i in range(len(ind_row))]
+    return(list_free_pos)
 
-possibilities(board)
+# possibilities(board)
 
 # EXERCISE 4
 #
@@ -83,3 +83,55 @@ possibilities(board)
 # * board is already defined from previous exercises.
 #   Call random_place(board, player) to place a random
 #   marker for Player 2, and store this as board to update its value.
+
+def random_place(board, player):
+    selection = random.choice(possibilities(board))
+    place(board, player, selection)
+    return(board)
+
+# MAIN FLOW
+# board = create_board()
+# board = random_place(board, 2)
+
+# EXERCISE 5
+#
+# Instructions:
+# * board is already defined from previous exercises.
+#   Use random_place(board, player) to place three pieces on board
+#   each for players 1 and 2.
+# * Print board to see your result.
+board = create_board()
+for i in range(3):
+    for player in [1, 2]:
+        board = random_place(board, player)
+
+print(board)
+
+# EXERCISE 6
+#
+# Instructions:
+# * Now that players may place their pieces, how will they know they've won?
+#   Make a function row_win(board, player) that takes the player (integer),
+#   and determines if any row consists of only their marker.
+#   Have it return True if this condition is met, and False otherwise.
+# * board is already defined from previous exercises.
+#   Call row_win to check if Player 1 has a complete row.
+
+# Row consists of a player marker <=>
+# all val of array tup(np.where(board == player))[0] are equals,
+# i,e: array([0,0,0]), or array([1,1,1]) or array(2,2,2) (COND)
+# np.unique() return an array with the unique values of an arg array.
+# => its lenght is then == 1 only for (COND) above.
+
+def row_win(board, player):
+    if len(np.unique(np.where(board == player)[0])) == 1:
+        return(True)
+    else:
+        return(False)
+
+# row_win(board, 1)
+
+# EXERCISE 7
+#
+# Instructions:
+# *
