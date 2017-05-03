@@ -17,10 +17,13 @@
 #   dimension 3 by 3. Make a function create_board() that creates
 #   such a board, with values of integers 0.
 # * Call create_board(), and store this as board.
+
 import numpy as np
+
 # let's make dim_board a GLOBAL var since it will be used
-# for latter exercise. LEGB allows us to do so.
+# latter in this homework. LEGB allows us to do so.
 dim_board = 3
+
 def create_board():
     return np.zeros((dim_board, dim_board), dtype=int)
 
@@ -45,8 +48,7 @@ def place(board, player, position):
     if board[position] == 0:
         board[position] = player
     else:
-        print("Move not allowd at position ", position)
-        print("Current Board Status:\n", board)
+        print("Move not allowed at position ", position)
 
 place(board, 1, (0,0))
 
@@ -61,23 +63,12 @@ place(board, 1, (0,0))
 #   Call possibilities(board) to see what it returns!
 
 def possibilities(board):
-    # np.where(board) would return a 2d-TUPLE ARRAY
-    # with INDICES where VALUE != 0
-    # Since we want INDICES where VALUE == 0, we create a 'board negative'.
-    mask = create_board()
-    board_negative = np.where(board, mask, 1)
-    # Now we can extract indices values != 0
-    board_empty_space = np.where(board_negative) # return a tuple w/ 2 arrays
-    # To build a list of Tuples, get the two arrays and build a list
-
-    # Let's PACK the tuple:
-    (ind_row, ind_col) = board_empty_space
-    list_of_pos_free = [(ind_row[i], ind_col[i]) \
+    # Let's PACK the tuple of 2 arrays returned by np.where:
+    (ind_row, ind_col) = np.where(board == 0)
+    # defined the list to be returned w/ List Comprehension:
+    list_free_pos = [(ind_row[i], ind_col[i]) \
                             for i in range(len(ind_row))]
-
-    # for i in range(len(ind_row)):
-    #     possibilities_list.append((ind_row[i], ind_col[i]))
-    return list_of_pos_free
+    return list_free_pos
 
 possibilities(board)
 
