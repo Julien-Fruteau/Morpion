@@ -79,8 +79,6 @@ def possibilities(board):
     #     possibilities_list.append((ind_row[i], ind_col[i]))
     return list_of_pos_free
 
-    # Added a comment for test git
-
 possibilities(board)
 
 # EXERCISE 4
