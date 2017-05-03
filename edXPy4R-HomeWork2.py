@@ -69,12 +69,15 @@ def possibilities(board):
     # Now we can extract indices values != 0
     board_empty_space = np.where(board_negative) # return a tuple w/ 2 arrays
     # To build a list of Tuples, get the two arrays and build a list
-    row_indices = board_empty_space[0]
-    column_indices = board_empty_space[1]
-    possibilities_list = []
-    for i in range(len(row_indices)):
-        possibilities_list.append((row_indices[i],column_indices[i]))
-    return possibilities_list
+
+    # Let's PACK the tuple:
+    (ind_row, ind_col) = board_empty_space
+    list_of_pos_free = [(ind_row[i], ind_col[i]) \
+                            for i in range(len(ind_row))]
+
+    # for i in range(len(ind_row)):
+    #     possibilities_list.append((ind_row[i], ind_col[i]))
+    return list_of_pos_free
 
 possibilities(board)
 
