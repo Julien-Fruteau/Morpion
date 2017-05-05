@@ -20,6 +20,8 @@
 
 import numpy as np
 import random
+import matplotlib.pyplot as plt
+import time
 
 # let's make dim_board a GLOBAL constance since it will be used
 # latter in this homework. LEGB allows us to do so.
@@ -219,7 +221,7 @@ def play_game():
     # return(winner, board)
     return(winner)
 
-play_game()
+# play_game()
 
 # def test_draw():
 #  !!!! UNCOMMENT return(winner, board) from def play_game() !!!!
@@ -230,3 +232,34 @@ play_game()
 #         iteration += 1
 #     print(my_win[1], iteration)
 # test_draw()
+
+# EXERCISE 11
+#
+# Instructions:
+# * Use the play_game() function to play 1,000 random games, where
+#   Player 1 always goes first.
+# * When doing this, import and use the time library to call the time
+#   function both before and after playing all 1,000 games in order
+#   to evaluate how long this takes per game. Print your answer.
+# * The library matplotlib.pyplot has already been stored as plt.
+#   Use plt.hist and plt.show to plot a histogram of the results.
+#   Does Player 1 win more than Player 2? Does either player win more
+#   than each player draws?
+
+wins = []
+start_time = time.time()
+for i in range(1000):
+    wins.append(play_game())
+
+end_time = time.time()
+
+print((end_time - start_time) / 1000)
+
+plt.hist(wins)
+plt.xlabel("win results")
+plt.ylabel("total")
+plt.show()
+
+# Great work! We see that Player 1 wins more than Player 2,
+# and the game sometimes ends in draws. The total amount of time taken
+# is about a few seconds, but will vary from machine to machine.
