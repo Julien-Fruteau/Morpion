@@ -211,11 +211,13 @@ def evaluate(board):
 def play_game():
     # init game
     board = create_board()
+    # print(board)
     winner = 0
     while winner == 0:
         for player in [1, 2]:
             random_place(board, player)
             winner = evaluate(board)
+            # print(board)
             if winner != 0:
                 break
     # return(winner, board)
