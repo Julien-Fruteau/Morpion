@@ -246,10 +246,66 @@ def play_game():
 #   Does Player 1 win more than Player 2? Does either player win more
 #   than each player draws?
 
+# # !!! UNCOMMENT-START !!!
+#
+# wins = []
+# start_time = time.time()
+# for i in range(1000):
+#     wins.append(play_game())
+#
+# end_time = time.time()
+#
+# print((end_time - start_time) / 1000)
+#
+# plt.hist(wins)
+# plt.xlabel("win results")
+# plt.ylabel("total")
+# plt.show()
+#
+# # We see that Player 1 wins more than Player 2,
+# # and the game sometimes ends in draws. The total amount of time taken
+# # is about a few seconds, but will vary from machine to machine.
+#
+# # !!! UNCOMMENT-END !!!
+
+# EXERCISE 12
+#
+# Instructions:
+# * This result is expected --- when guessing at random, it's better to go
+#   first. Let's see if Player 1 can improve their strategy. create_board(),
+#   random_place(board, player), and evaluate(board) have been created from
+#   previous exercises. Create a function play_strategic_game(), where
+#   Player 1 always starts with the middle square, and otherwise both
+#   players place their markers randomly.
+# * Call play_strategic_game once.
+
+def play_strategic_game():
+    board, winner = create_board(), 0
+    board[1,1] = 1
+    while winner == 0:
+        for player in [2,1]:
+            random_place(board, player)
+            winner = evaluate(board)
+            if winner != 0:
+                break
+    return winner
+
+#  play_strategic_game()
+
+# EXERCISE 13
+#
+# Instructions:
+# * The results from Exercise 12 have been stored.
+#   Use the play_strategic_game() function to play 1,000 random games.
+# * Use the time libary to evaluate how long all these games takes.
+# * The library matplotlib.pyplot has already been stored as plt.
+#   Use plt.hist and plt.show to plot your results. Did Player 1's
+#   performance improve? Does either player win more than each player draws?
+
 wins = []
 start_time = time.time()
 for i in range(1000):
-    wins.append(play_game())
+    wins.append(play_strategic_game())
 
 end_time = time.time()
 
@@ -260,6 +316,9 @@ plt.xlabel("win results")
 plt.ylabel("total")
 plt.show()
 
-# Great work! We see that Player 1 wins more than Player 2,
-# and the game sometimes ends in draws. The total amount of time taken
-# is about a few seconds, but will vary from machine to machine.
+# Great work! Yes, starting in the middle square is a large advantage when
+# play is otherwise random. Also, each game takes less time to play,
+# because each victory is decided earlier. Player 1 wins much more than
+# Player 2, and draws are less common.
+
+# You have finished the chapter "Homework 2"!
